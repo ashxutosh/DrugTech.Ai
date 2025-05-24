@@ -1,0 +1,605 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #070720;
+    color: #f0f0f0;
+    overflow-x: hidden;
+}
+
+/* Navigation - Maintains curved shape */
+.navbar {
+    background: rgba(0, 214, 93, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 60px;
+    width: 90%;
+    max-width: 1400px;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    top: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.nav-left {
+    justify-content: flex-end;
+    padding-right: 80px;
+}
+
+.nav-right {
+    justify-content: flex-start;
+    padding-left: 80px;
+}
+
+.nav-item {
+    padding: 0 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #0a0a14;
+    text-decoration: none;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.nav-item:hover {
+    background-color: rgba(10, 10, 20, 0.1);
+}
+
+.nav-left .nav-item:first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.nav-right .nav-item:last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.mobile-menu-button {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background: transparent;
+    border: none;
+    color: #0a0a14;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 102;
+}
+
+/* Logo */
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
+}
+
+.logo-triangle {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 52px solid #95cb95;
+    position: relative;
+    filter: drop-shadow(0 0 10px rgba(6, 209, 94, 0.5));
+}
+
+.logo-triangle:before {
+    content: '';
+    position: absolute;
+    top: 17px;
+    left: -20px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 35px solid rgba(7, 6, 54, 0.9);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 20px;
+    right: -280px;
+    width: 280px;
+    height: calc(100vh - 40px);
+    background: rgba(13, 243, 112, 0.66);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 99;
+    padding-top: 70px;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 20px 0 0 20px;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu-item {
+    display: block;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #0a0a14;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(10, 10, 20, 0.1);
+    transition: background-color 0.3s;
+}
+
+.mobile-menu-item:hover {
+    background-color: rgba(10, 10, 20, 0.1);
+}
+
+/* Overlay for mobile menu */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Header Section */
+.header {
+    height: 40vh;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 20px 0;
+    background: linear-gradient(180deg, rgba(0, 214, 91, 0.05) 0%, rgba(0, 214, 91, 0.02) 100%);
+}
+
+.header h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #00d65b, #79ffb9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.header p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Performance Metrics Section */
+.performance-metrics {
+    padding: 80px 5%;
+    background: rgba(10, 10, 20, 0.03);
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #00d65b;
+    text-align: center;
+}
+
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.metric-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    padding: 30px;
+    transition: transform 0.3s;
+    border-left: 3px solid #00d65b;
+    box-shadow: 0 8px 32px rgba(0, 214, 91, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.metric-card:hover {
+    transform: translateY(-10px);
+}
+
+.metric-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: #00d65b;
+    margin: 10px 0;
+}
+
+.metric-label {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.metric-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(240, 240, 240, 0.8);
+}
+
+/* Training Process Section */
+.training-process {
+    padding: 80px 5%;
+}
+
+.process-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.process-description {
+    margin-bottom: 50px;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.process-description p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.process-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.process-step {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 350px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 214, 91, 0.1);
+    transition: transform 0.3s;
+    border-top: 3px solid #00d65b;
+}
+
+.process-step:hover {
+    transform: translateY(-10px);
+}
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    background: #00d65b;
+    color: #070720;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.process-step h3 {
+    font-size: 24px;
+    margin: 10px 0 20px;
+    color: #00d65b;
+}
+
+.process-step p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(240, 240, 240, 0.9);
+}
+
+/* Footer */
+footer {
+    background-color: #080810;
+    padding: 50px 5% 30px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h4 {
+    color: #00d65b;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+}
+
+.footer-section li {
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #00d65b;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .nav-left {
+        padding-right: 60px;
+    }
+    
+    .nav-right {
+        padding-left: 60px;
+    }
+    
+    .header h1 {
+        font-size: 42px;
+    }
+    
+    .navbar {
+        width: 95%;
+    }
+    
+    .section-title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-left {
+        padding-right: 40px;
+    }
+    
+    .nav-right {
+        padding-left: 40px;
+    }
+    
+    .nav-item {
+        padding: 0 15px;
+    }
+    
+    .header h1 {
+        font-size: 36px;
+    }
+    
+    .header p {
+        font-size: 16px;
+    }
+    
+    .metric-value {
+        font-size: 42px;
+    }
+    
+    .metric-label {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    .nav-left, .nav-right {
+        display: none;
+    }
+    
+    .logo-container {
+        left: 20px;
+        transform: none;
+    }
+    
+    .header h1 {
+        font-size: 32px;
+    }
+    
+    .header {
+        padding-top: 100px;
+    }
+    
+    .process-description p {
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    
+    .performance-metrics, .training-process {
+        padding: 60px 5%;
+    }
+}
+
+@media (max-width: 576px) {
+    .header h1 {
+        font-size: 28px;
+    }
+    
+    .header p {
+        font-size: 15px;
+    }
+    
+    .metric-value {
+        font-size: 36px;
+    }
+    
+    .metric-label {
+        font-size: 16px;
+    }
+    
+    .process-step {
+        padding: 25px 20px;
+    }
+    
+    .process-step h3 {
+        font-size: 20px;
+    }
+    
+    .footer-section {
+        min-width: 100%;
+    }
+    
+    .navbar {
+        width: 90%;
+        top: 10px;
+        border-radius: 30px;
+    }
+}
+
+/* Auth Buttons Styles */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    gap: 10px;
+}
+
+.auth-button {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.login-btn {
+    background: rgba(10, 10, 20, 0.2);
+    color: #0a0a14;
+    border: 1px solid rgba(10, 10, 20, 0.3);
+}
+
+.login-btn:hover {
+    background: rgba(10, 10, 20, 0.3);
+}
+
+.signup-btn {
+    background: #0a0a14;
+    color: #00d65b;
+    border: 1px solid #0a0a14;
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Auth Buttons */
+.mobile-auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 30px;
+    border-top: 1px solid rgba(10, 10, 20, 0.1);
+    margin-top: 10px;
+}
+
+.mobile-auth-button {
+    display: block;
+    padding: 12px 0;
+    text-align: center;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+/* Responsive adjustments for auth buttons */
+@media (max-width: 992px) {
+    .auth-buttons {
+        margin-left: 10px;
+        gap: 8px;
+    }
+    
+    .auth-button {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .auth-buttons {
+        display: none;
+    }
+    
+    /* Adjust padding for the last nav item to maintain spacing */
+    .nav-right .nav-item:last-child {
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+}

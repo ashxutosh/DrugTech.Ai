@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up - DrugTech AI</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        /* Auth Page Specific Styles */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            padding-top: 100px;
+            padding-bottom: 50px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .auth-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-left: 3px solid #00d65b;
+            margin: 0 20px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .auth-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00d65b, #79ffb9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .auth-header p {
+            color: rgba(240, 240, 240, 0.7);
+            font-size: 16px;
+        }
+
+        .auth-form-group {
+            margin-bottom: 20px;
+        }
+
+        .auth-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #f0f0f0;
+            font-weight: 500;
+        }
+
+        .auth-form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .auth-form-group input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px rgba(0, 214, 91, 0.3);
+        }
+
+        .auth-extra {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+            accent-color: #00d65b;
+        }
+
+        .forgot-password {
+            color: #00d65b;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #79ffb9;
+            text-decoration: underline;
+        }
+
+        .auth-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background: #00d65b;
+            color: #0a0a14;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .auth-submit:hover {
+            background: #00e064;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 214, 91, 0.2);
+        }
+
+        .auth-separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: rgba(240, 240, 240, 0.5);
+        }
+
+        .auth-separator::before,
+        .auth-separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(240, 240, 240, 0.2);
+        }
+
+        .auth-separator::before {
+            margin-right: 15px;
+        }
+
+        .auth-separator::after {
+            margin-left: 15px;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .google-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24px' height='24px'%3E%3Cpath fill='%23f0f0f0' d='M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032 s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2 C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z'/%3E%3C/svg%3E");
+        }
+
+        .linkedin-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24px' height='24px'%3E%3Cpath fill='%23f0f0f0' d='M19,3H5C3.895,3,3,3.895,3,5v14c0,1.105,0.895,2,2,2h14c1.105,0,2-0.895,2-2V5C21,3.895,20.105,3,19,3z M9,17H6.477v-7H9V17z M7.694,8.717c-0.771,0-1.286-0.514-1.286-1.2s0.514-1.2,1.371-1.2c0.771,0,1.286,0.514,1.286,1.2S8.551,8.717,7.694,8.717z M18,17h-2.442v-3.826c0-1.058-0.651-1.302-0.895-1.302s-1.058,0.163-1.058,1.302c0,0.163,0,3.826,0,3.826h-2.523v-7h2.523v0.977C13.93,10.407,14.581,10,15.802,10C17.023,10,18,10.977,18,13.174V17z'/%3E%3C/svg%3E");
+        }
+
+        .github-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24px' height='24px'%3E%3Cpath fill='%23f0f0f0' d='M12,2C6.477,2,2,6.477,2,12c0,4.419,2.865,8.166,6.839,9.489c0.5,0.09,0.682-0.218,0.682-0.484 c0-0.236-0.009-0.866-0.014-1.699c-2.782,0.602-3.369-1.34-3.369-1.34c-0.455-1.157-1.11-1.465-1.11-1.465 c-0.909-0.62,0.069-0.608,0.069-0.608c1.004,0.071,1.532,1.03,1.532,1.03c0.891,1.529,2.341,1.089,2.91,0.833 c0.091-0.647,0.349-1.086,0.635-1.337c-2.22-0.251-4.555-1.111-4.555-4.943c0-1.091,0.39-1.984,1.03-2.682 c-0.103-0.253-0.446-1.27,0.098-2.647c0,0,0.84-0.269,2.75,1.026C10.092,6.69,11.05,6.54,12,6.535 c0.95,0.006,1.908,0.156,2.805,0.456c1.91-1.296,2.747-1.026,2.747-1.026c0.546,1.377,0.202,2.394,0.1,2.647 c0.64,0.699,1.026,1.591,1.026,2.682c0,3.841-2.337,4.687-4.565,4.935c0.359,0.307,0.679,0.917,0.679,1.852 c0,1.335-0.012,2.415-0.012,2.741c0,0.269,0.18,0.579,0.688,0.481C19.138,20.161,22,16.416,22,12C22,6.477,17.523,2,12,2z'/%3E%3C/svg%3E");
+        }
+
+        .auth-switch {
+            text-align: center;
+            font-size: 15px;
+            color: rgba(240, 240, 240, 0.7);
+        }
+
+        .auth-switch a {
+            color: #00d65b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .auth-switch a:hover {
+            color: #79ffb9;
+            text-decoration: underline;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: rgba(240, 240, 240, 0.7);
+        }
+
+        .auth-tab.active {
+            background: rgba(0, 214, 91, 0.2);
+            color: #f0f0f0;
+        }
+
+        .auth-content {
+            display: none;
+        }
+
+        .auth-content.active {
+            display: block;
+        }
+
+        @media (max-width: 576px) {
+            .auth-box {
+                padding: 30px 20px;
+            }
+
+            .auth-header h1 {
+                font-size: 28px;
+            }
+
+            .auth-extra {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .social-login {
+                gap: 10px;
+            }
+
+            .social-button {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left" id="navLeft">
+            <a href="home.html" class="nav-item">Home</a>
+            <a href="solutions.html" class="nav-item">Solutions</a>
+        </div>
+        <div class="logo-container">
+            <div class="logo-triangle"></div>
+        </div>
+        <div class="nav-right" id="navRight">
+            <a href="about.html" class="nav-item">About Us</a>
+            <a href="performance.html" class="nav-item">Performance</a>
+            
+        </div>
+        <button class="mobile-menu-button" id="mobileMenuBtn">☰</button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="home.html" class="mobile-menu-item">Home</a>
+        <a href="solutions.html" class="mobile-menu-item">Solutions</a>
+        <a href="about.html" class="mobile-menu-item">About Us</a>
+        <a href="performance.html" class="mobile-menu-item">Performance</a>
+       
+    </div>
+    
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Access your MediAgent AI dashboard</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab " id="loginTab">Log In</div>
+                <div class="auth-tab active" id="signupTab">Sign Up</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-content" id="loginContent">
+                <form id="loginForm">
+                    <div class="auth-form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="auth-form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="auth-extra">
+                        <div class="remember-me">
+                            <input type="checkbox" id="rememberMe" name="remember">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="auth-submit">Log In</button>
+                </form>
+                
+                <div class="auth-separator">or continue with</div>
+                
+                <div class="social-login">
+                    <div class="social-button">
+                        <div class="social-icon google-icon"></div>
+                    </div>
+                    <div class="social-button">
+                        <div class="social-icon linkedin-icon"></div>
+                    </div>
+                    <div class="social-button">
+                        <div class="social-icon github-icon"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Signup Form -->
+            <div class="auth-content active" id="signupContent">
+                <form id="signupForm">
+                    <div class="auth-form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="auth-form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="auth-form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" name="password" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="auth-form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <div class="auth-extra">
+                        <div class="remember-me">
+                            <input type="checkbox" id="termsAgree" name="terms" required>
+                            <label for="termsAgree">I agree to the <a href="#" class="forgot-password">Terms of Service</a></label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="auth-submit">Create Account</button>
+                </form>
+                
+                <div class="auth-separator">or continue with</div>
+                
+                <div class="social-login">
+                    <div class="social-button">
+                        <div class="social-icon google-icon"></div>
+                    </div>
+                    <div class="social-button">
+                        <div class="social-icon linkedin-icon"></div>
+                    </div>
+                    <div class="social-button">
+                        <div class="social-icon github-icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="drug_repurposing.html">Drug Repurposing</a></li>
+                    <li><a href="drug_discovery.html">Drug Discovery</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="performance.html">Research Papers</a></li>
+                    <li><a href="performance.html">Industry Reports</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.html">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 MediAgent AI. All rights reserved.
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auth tab switching
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+            const loginContent = document.getElementById('loginContent');
+            const signupContent = document.getElementById('signupContent');
+            const authHeader = document.querySelector('.auth-header h1');
+            const authSubheader = document.querySelector('.auth-header p');
+            
+            loginTab.addEventListener('click', function() {
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+                loginContent.classList.add('active');
+                signupContent.classList.remove('active');
+                authHeader.textContent = 'Welcome Back';
+                authSubheader.textContent = 'Access your MediAgent AI dashboard';
+            });
+            
+            signupTab.addEventListener('click', function() {
+                signupTab.classList.add('active');
+                loginTab.classList.remove('active');
+                signupContent.classList.add('active');
+                loginContent.classList.remove('active');
+                authHeader.textContent = 'Create Account';
+                authSubheader.textContent = 'Join MediAgent AI to explore our solutions';
+            });
+            
+            // Form submission
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Login functionality would connect to your authentication system here.');
+                });
+            }
+            
+            if (signupForm) {
+                signupForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const password = document.getElementById('signupPassword').value;
+                    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                    
+                    if (password !== confirmPassword) {
+                        alert('Passwords do not match. Please try again.');
+                        return;
+                    }
+                    
+                    alert('Sign up functionality would connect to your user registration system here.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

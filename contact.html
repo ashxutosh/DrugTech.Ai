@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - MediAgent AI</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <div class="container">
+        <div class="contact-section">
+            <div class="contact-info">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="contact-subtitle">Have questions about our AI-powered drug repurposing and discovery solutions? Our team is here to help.</p>
+                
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <div class="contact-icon-inner"></div>
+                    </div>
+                    <div class="contact-info-content">
+                        <h4>Our Location</h4>
+                        <p>Bengaluru<br>Karnataka,India</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <div class="contact-icon-inner"></div>
+                    </div>
+                    <div class="contact-info-content">
+                        <h4>Email Us</h4>
+                        <p>info@mediagentai.com<br>support@mediagentai.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <div class="contact-icon-inner"></div>
+                    </div>
+                    <div class="contact-info-content">
+                        <h4>Call Us</h4>
+                        <p>+91 (617) 555-0123<br>Mon-Fri, 9AM-5PM IST</p>
+                    </div>
+                </div>
+                
+                <div class="social-icons">
+                    <div class="social-icon"></div>
+                    <div class="social-icon"></div>
+                    <div class="social-icon"></div>
+                    <div class="social-icon"></div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <div class="success-message" id="successMessage">
+                    <p>Your message has been sent successfully! Our team will get back to you shortly.</p>
+                </div>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company/Organization</label>
+                        <input type="text" id="company" class="form-control" placeholder="Enter your company or organization name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position">Position/Job Title</label>
+                        <input type="text" id="position" class="form-control" placeholder="Enter your position or job title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inquiryType">Inquiry Type</label>
+                        <select id="inquiryType" class="form-control" required>
+                            <option value="" selected disabled>Select an inquiry type</option>
+                            <option value="demo">Request a Demo</option>
+                            <option value="pricing">Pricing Information</option>
+                            <option value="partnership">Partnership Opportunities</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" id="consent" class="form-check-input" required>
+                        <label for="consent" class="form-check-label">I agree to MediAgent AI's Privacy Policy and consent to being contacted regarding my inquiry.</label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-placeholder">Interactive Map Location</div>
+        </div>
+    </div>
+    
+    <script src="contact.js">
+        
+    </script>
+</body>
+</html>
